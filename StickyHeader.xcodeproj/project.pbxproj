@@ -62,6 +62,7 @@
 		42B0BA9D26403ABC008E7BB8 /* StickyHeader */ = {
 			isa = PBXGroup;
 			children = (
+				42E047D6264104FA00EAEBA7 /* New Group */,
 				42B0BA9E26403ABC008E7BB8 /* AppDelegate.swift */,
 				42B0BAA026403ABC008E7BB8 /* SceneDelegate.swift */,
 				42B0BAA226403ABC008E7BB8 /* ViewController.swift */,
@@ -73,6 +74,13 @@
 				42B0BAB72640410E008E7BB8 /* ChildViewController.swift */,
 			);
 			path = StickyHeader;
+			sourceTree = "<group>";
+		};
+		42E047D6264104FA00EAEBA7 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

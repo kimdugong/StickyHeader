@@ -3,4 +3,133 @@
    uuid = "4CAC49E0-2162-4D21-8E51-DC75DEBFB2E4"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "03B4C5F3-7AFE-42EE-A981-2A868A0518ED"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "StickyHeader/ChildViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "50"
+            endingLineNumber = "50"
+            landmarkName = "adjustTableViewOffset(offset:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "03B4C5F3-7AFE-42EE-A981-2A868A0518ED - fe3947e45e8dd0ca"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "StickyHeader.ChildViewController.adjustTableViewOffset(offset: CoreGraphics.CGFloat) -&gt; ()"
+                  moduleName = "StickyHeader"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dugong/Developer/ios%20sample/StickyHeader/StickyHeader/ChildViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "52"
+                  endingLineNumber = "52"
+                  offsetFromSymbolStart = "44">
+               </Location>
+               <Location
+                  uuid = "03B4C5F3-7AFE-42EE-A981-2A868A0518ED - fe3947e45e8dd0ca"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "StickyHeader.ChildViewController.adjustTableViewOffset(offset: CoreGraphics.CGFloat) -&gt; ()"
+                  moduleName = "StickyHeader"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dugong/Developer/ios%20sample/StickyHeader/StickyHeader/ChildViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "52"
+                  endingLineNumber = "52"
+                  offsetFromSymbolStart = "65">
+               </Location>
+               <Location
+                  uuid = "03B4C5F3-7AFE-42EE-A981-2A868A0518ED - 4511068b96c8bd43"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in StickyHeader.ChildViewController.adjustTableViewOffset(offset: CoreGraphics.CGFloat) -&gt; ()"
+                  moduleName = "StickyHeader"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dugong/Developer/ios%20sample/StickyHeader/StickyHeader/ChildViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "53"
+                  endingLineNumber = "53"
+                  offsetFromSymbolStart = "35">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "27F9CA08-EDF9-4454-9D10-5BBB10E6F015"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "StickyHeader/ChildViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "41"
+            endingLineNumber = "41"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "87A7B544-CD30-42EE-A1A5-4DC96050B9C4"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "StickyHeader/ChildViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "30"
+            endingLineNumber = "30"
+            landmarkName = "init(menuTitle:maxHeight:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "87A7B544-CD30-42EE-A1A5-4DC96050B9C4 - 99229a41c687a756"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "StickyHeader.ChildViewController.__allocating_init(menuTitle: Swift.String, maxHeight: CoreGraphics.CGFloat) -&gt; StickyHeader.ChildViewController"
+                  moduleName = "StickyHeader"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dugong/Developer/ios%20sample/StickyHeader/StickyHeader/ChildViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "14">
+               </Location>
+               <Location
+                  uuid = "87A7B544-CD30-42EE-A1A5-4DC96050B9C4 - e31fcbb7ee457185"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "StickyHeader.ChildViewController.init(menuTitle: Swift.String, maxHeight: CoreGraphics.CGFloat) -&gt; StickyHeader.ChildViewController"
+                  moduleName = "StickyHeader"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dugong/Developer/ios%20sample/StickyHeader/StickyHeader/ChildViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "16"
+                  endingLineNumber = "16"
+                  offsetFromSymbolStart = "174">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>
