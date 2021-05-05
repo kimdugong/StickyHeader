@@ -25,6 +25,9 @@ class ChildViewController: UIViewController, StickyHeaderChildViewController {
         let table = UITableView()
         table.delegate = self
         table.dataSource = self
+        
+        table.showsHorizontalScrollIndicator = false
+        table.showsVerticalScrollIndicator = false
 
         return table
     }()

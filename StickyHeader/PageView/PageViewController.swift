@@ -10,12 +10,17 @@ import UIKit
 protocol PageViewControllerDelegate: AnyObject {
     func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController])
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool)
+    func pageIndexWillChange(index: Int)
 }
 
 class PageViewController: UIPageViewController {
     private var pages: [UIViewController]
     private var maxHeight: CGFloat
-    var visiablePageIndex: Int = 0
+    var visiablePageIndex: Int = 0 {
+        willSet {
+            pageViewDelegate?.pageIndexWillChange(index: newValue)
+        }
+    }
     weak var pageViewDelegate: PageViewControllerDelegate?
     
     init(pages: [StickyHeaderChildViewController], maxHeight: CGFloat) {

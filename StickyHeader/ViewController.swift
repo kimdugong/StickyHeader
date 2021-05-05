@@ -26,7 +26,7 @@ class ViewController: UIViewController {
         return view
     }()
     
-    private lazy var stickyHeaderView = StickyHeaderView(menuHeight: menuHeight)
+    private lazy var stickyHeaderView = StickyHeaderView(menuHeight: menuHeight, bottomLineHeight: 2.5, bottomLineColor: .systemGreen)
     
     private lazy var pageView: PageViewController = {
         let pages = tabTitle.enumerated().map { (index, title) -> ChildViewController in
@@ -88,6 +88,10 @@ extension ViewController: ChildViewContollerScrollDelegate {
 }
 
 extension ViewController: PageViewControllerDelegate {
+    func pageIndexWillChange(index: Int) {
+        stickyHeaderView.moveSelectedUnderlineView(index: index)
+    }
+    
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
     }
 
