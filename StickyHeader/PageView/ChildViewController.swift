@@ -8,18 +8,19 @@
 import UIKit
 
 protocol ChildViewContollerScrollDelegate: AnyObject {
-    func childViewScrollViewDidScroll(_ scrollView: UIScrollView, menuTitle: String)
-    func childScrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool)
+    func childViewScrollViewDidScroll(_ scrollView: UIScrollView)
 }
 
 protocol StickyHeaderChildViewController: UIViewController {
     var menuTitle: String { get }
     var index: Int { get }
+    var currentOffsetY: CGFloat { get }
 }
 
 class ChildViewController: UIViewController, StickyHeaderChildViewController {
-    internal var menuTitle: String
-    internal var index: Int
+    var menuTitle: String
+    var index: Int
+    var currentOffsetY: CGFloat = 0
     
     private lazy var tableview: UITableView = {
         let table = UITableView()
@@ -28,11 +29,10 @@ class ChildViewController: UIViewController, StickyHeaderChildViewController {
         
         table.showsHorizontalScrollIndicator = false
         table.showsVerticalScrollIndicator = false
-
+        
         return table
     }()
 
-    var currentOffsetY: CGFloat = 0
 
     weak var delegate: ChildViewContollerScrollDelegate?
     
@@ -56,8 +56,8 @@ class ChildViewController: UIViewController, StickyHeaderChildViewController {
     }
 
     func adjustScrollViewOffset(offset: CGFloat) {
-        UIView.animate(withDuration: 0.25) {
-            self.tableview.contentOffset.y -= offset
+        UIView.animate(withDuration: 0.1) {
+            self.tableview.contentOffset.y = self.currentOffsetY - offset
         }
     }
 
@@ -69,7 +69,7 @@ class ChildViewController: UIViewController, StickyHeaderChildViewController {
 
 extension ChildViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 30
+        return 50
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -80,10 +80,6 @@ extension ChildViewController: UITableViewDelegate, UITableViewDataSource {
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         currentOffsetY = scrollView.contentOffset.y
-        delegate?.childViewScrollViewDidScroll(scrollView, menuTitle: menuTitle)
-    }
-
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        delegate?.childScrollViewDidEndDragging(scrollView, willDecelerate: decelerate)
+        delegate?.childViewScrollViewDidScroll(scrollView)
     }
 }

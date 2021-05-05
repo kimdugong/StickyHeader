@@ -47,12 +47,14 @@ class PageViewController: UIPageViewController {
         self.setViewControllers([childVC], direction: .forward, animated: true, completion: nil)
     }
     
-    func pagingTo(pageWithAtIndex index: Int, andNavigationDirection navigationDirection: UIPageViewController.NavigationDirection, headerViewHeight: CGFloat) {
-        [pages[index]]
-            .compactMap({ $0 as? ChildViewController })
-            .forEach({ $0.adjustScrollViewOffset(offset: $0.currentOffsetY + headerViewHeight ) })
-
-        self.setViewControllers([pages[index]], direction: navigationDirection, animated: true)
+    func pagingTo(toIndex index: Int, navigationDirection direction: UIPageViewController.NavigationDirection, headerViewHeight: CGFloat) {
+        guard let childVC = pages[index] as? ChildViewController else {
+            return
+        }
+        if childVC.currentOffsetY + headerViewHeight <= maxHeight {
+            childVC.adjustScrollViewOffset(offset: childVC.currentOffsetY + headerViewHeight )
+        }
+        self.setViewControllers([pages[index]], direction: direction, animated: true)
     }
     
 }

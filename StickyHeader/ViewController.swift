@@ -19,12 +19,6 @@ class ViewController: UIViewController {
         view.backgroundColor = .yellow
         return view
     }()
-
-    private var headerView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .systemTeal
-        return view
-    }()
     
     private lazy var stickyHeaderView = StickyHeaderView(menuHeight: menuHeight, bottomLineHeight: 2.5, bottomLineColor: .systemGreen)
     
@@ -67,11 +61,7 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: ChildViewContollerScrollDelegate {
-    func childScrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-//        currentHeight = min(stickyHeaderView.frame.height, maxHeight)
-    }
-
-    func childViewScrollViewDidScroll(_ scrollView: UIScrollView, menuTitle: String) {
+    func childViewScrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.y == 0 {
             return
         }
@@ -83,6 +73,9 @@ extension ViewController: ChildViewContollerScrollDelegate {
             stickyHeaderView.snp.updateConstraints { make in
                 make.height.equalTo(minHeight)
             }
+            UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: {
+                self.stickyHeaderView.layoutIfNeeded()
+            }, completion: nil)
         }
     }
 }
@@ -98,6 +91,7 @@ extension ViewController: PageViewControllerDelegate {
     func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
         pendingViewControllers
             .compactMap({ $0 as? ChildViewController })
+            .filter({ $0.currentOffsetY + stickyHeaderView.bounds.height <= maxHeight })
             .forEach({ $0.adjustScrollViewOffset(offset: $0.currentOffsetY + stickyHeaderView.bounds.height) })
     }
 }
@@ -123,6 +117,6 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegateFl
         let direction: UIPageViewController.NavigationDirection = indexPath.item > pageView.visiablePageIndex ? .forward : .reverse
 
         pageView.visiablePageIndex = indexPath.item
-        pageView.pagingTo(pageWithAtIndex: indexPath.row, andNavigationDirection: direction, headerViewHeight: stickyHeaderView.bounds.height)
+        pageView.pagingTo(toIndex: indexPath.row, navigationDirection: direction, headerViewHeight: stickyHeaderView.bounds.height)
     }
 }
