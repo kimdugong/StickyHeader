@@ -14,8 +14,8 @@
             filePath = "StickyHeader/ChildViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "50"
-            endingLineNumber = "50"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
             landmarkName = "adjustTableViewOffset(offset:)"
             landmarkType = "7">
             <Locations>
@@ -70,65 +70,17 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "27F9CA08-EDF9-4454-9D10-5BBB10E6F015"
+            uuid = "E1BCA61D-9B9C-483F-9557-1C9FA60CCAE0"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "StickyHeader/ChildViewController.swift"
+            filePath = "StickyHeader/PageView/PageViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "41"
-            endingLineNumber = "41"
-            landmarkName = "viewDidLoad()"
+            startingLineNumber = "46"
+            endingLineNumber = "46"
+            landmarkName = "pagingTo(pageWithAtIndex:andNavigationDirection:headerViewHeight:)"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "87A7B544-CD30-42EE-A1A5-4DC96050B9C4"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "StickyHeader/ChildViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "30"
-            endingLineNumber = "30"
-            landmarkName = "init(menuTitle:maxHeight:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "87A7B544-CD30-42EE-A1A5-4DC96050B9C4 - 99229a41c687a756"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "StickyHeader.ChildViewController.__allocating_init(menuTitle: Swift.String, maxHeight: CoreGraphics.CGFloat) -&gt; StickyHeader.ChildViewController"
-                  moduleName = "StickyHeader"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/dugong/Developer/ios%20sample/StickyHeader/StickyHeader/ChildViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "0"
-                  endingLineNumber = "0"
-                  offsetFromSymbolStart = "14">
-               </Location>
-               <Location
-                  uuid = "87A7B544-CD30-42EE-A1A5-4DC96050B9C4 - e31fcbb7ee457185"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "StickyHeader.ChildViewController.init(menuTitle: Swift.String, maxHeight: CoreGraphics.CGFloat) -&gt; StickyHeader.ChildViewController"
-                  moduleName = "StickyHeader"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/dugong/Developer/ios%20sample/StickyHeader/StickyHeader/ChildViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "16"
-                  endingLineNumber = "16"
-                  offsetFromSymbolStart = "174">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

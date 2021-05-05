@@ -13,12 +13,12 @@ protocol PageViewControllerDelegate: AnyObject {
 }
 
 class PageViewController: UIPageViewController {
-    
     private var pages: [UIViewController]
     private var maxHeight: CGFloat
+    var visiablePageIndex: Int = 0
     weak var pageViewDelegate: PageViewControllerDelegate?
     
-    init(pages: UIViewController..., maxHeight: CGFloat) {
+    init(pages: [StickyHeaderChildViewController], maxHeight: CGFloat) {
         self.pages = pages
         self.maxHeight = maxHeight
         super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: .none)
@@ -35,13 +35,20 @@ class PageViewController: UIPageViewController {
         guard let childVC = pages.first as? ChildViewController else {
             return
         }
-        childVC.adjustTableViewOffset(offset: maxHeight)
+        childVC.adjustScrollViewOffset(offset: maxHeight)
         pages
             .compactMap({ $0 as? ChildViewController })
-            .forEach({ $0.adjustTableViewInset(inset: UIEdgeInsets(top: maxHeight, left: 0, bottom: 0, right: 0))})
+            .forEach({ $0.adjustScrollViewInset(inset: UIEdgeInsets(top: maxHeight, left: 0, bottom: 0, right: 0))})
         self.setViewControllers([childVC], direction: .forward, animated: true, completion: nil)
     }
     
+    func pagingTo(pageWithAtIndex index: Int, andNavigationDirection navigationDirection: UIPageViewController.NavigationDirection, headerViewHeight: CGFloat) {
+        [pages[index]]
+            .compactMap({ $0 as? ChildViewController })
+            .forEach({ $0.adjustScrollViewOffset(offset: $0.currentOffsetY + headerViewHeight ) })
+
+        self.setViewControllers([pages[index]], direction: navigationDirection, animated: true)
+    }
     
 }
 
@@ -49,7 +56,6 @@ extension PageViewController: UIPageViewControllerDelegate, UIPageViewController
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         guard let viewControllerIndex = pages.firstIndex(of: viewController) else { return nil }
         let previousIndex = viewControllerIndex - 1
-//        guard previousIndex >= 0 else { return pages.last }
         guard previousIndex >= 0 else { return nil }
         guard pages.count > previousIndex else { return nil }
         
@@ -59,7 +65,6 @@ extension PageViewController: UIPageViewControllerDelegate, UIPageViewController
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         guard let viewControllerIndex = pages.firstIndex(of: viewController) else { return nil }
         let nextIndex = viewControllerIndex + 1
-//        guard nextIndex < pages.count else { return pages.first }
         guard nextIndex < pages.count else { return nil }
         guard pages.count > nextIndex else { return nil }
         
@@ -71,6 +76,10 @@ extension PageViewController: UIPageViewControllerDelegate, UIPageViewController
     }
 
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        guard let child = pageViewController.viewControllers?.last as? ChildViewController else {
+            return
+        }
+        visiablePageIndex = child.index
         pageViewDelegate?.pageViewController(pageViewController, didFinishAnimating: finished, previousViewControllers: previousViewControllers, transitionCompleted: completed)
     }
 

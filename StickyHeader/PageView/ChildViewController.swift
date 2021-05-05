@@ -7,13 +7,20 @@
 
 import UIKit
 
-protocol ChildViewContollerDelegate: AnyObject {
+protocol ChildViewContollerScrollDelegate: AnyObject {
     func childViewScrollViewDidScroll(_ scrollView: UIScrollView, menuTitle: String)
-    func childViewScrollViewDidEndDecelerating(_ scrollView: UIScrollView)
+    func childScrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool)
 }
 
-class ChildViewController: UIViewController {
-    private var menuTitle: String
+protocol StickyHeaderChildViewController: UIViewController {
+    var menuTitle: String { get }
+    var index: Int { get }
+}
+
+class ChildViewController: UIViewController, StickyHeaderChildViewController {
+    internal var menuTitle: String
+    internal var index: Int
+    
     private lazy var tableview: UITableView = {
         let table = UITableView()
         table.delegate = self
@@ -22,14 +29,13 @@ class ChildViewController: UIViewController {
         return table
     }()
 
-    private var maxHeight: CGFloat
     var currentOffsetY: CGFloat = 0
 
-    weak var delegate: ChildViewContollerDelegate?
+    weak var delegate: ChildViewContollerScrollDelegate?
     
-    init(menuTitle: String, maxHeight: CGFloat) {
+    init(menuTitle: String, index: Int) {
         self.menuTitle = menuTitle
-        self.maxHeight = maxHeight
+        self.index = index
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -46,19 +52,21 @@ class ChildViewController: UIViewController {
         }
     }
 
-    func adjustTableViewOffset(offset: CGFloat) {
-        tableview.contentOffset.y = -offset
+    func adjustScrollViewOffset(offset: CGFloat) {
+        UIView.animate(withDuration: 0.25) {
+            self.tableview.contentOffset.y -= offset
+        }
     }
 
-    func adjustTableViewInset(inset: UIEdgeInsets) {
-        tableview.contentInset = inset
+    func adjustScrollViewInset(inset: UIEdgeInsets) {
+        self.tableview.contentInset = inset
     }
 
 }
 
 extension ChildViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 50
+        return 30
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -72,8 +80,7 @@ extension ChildViewController: UITableViewDelegate, UITableViewDataSource {
         delegate?.childViewScrollViewDidScroll(scrollView, menuTitle: menuTitle)
     }
 
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        delegate?.childViewScrollViewDidEndDecelerating(scrollView)
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        delegate?.childScrollViewDidEndDragging(scrollView, willDecelerate: decelerate)
     }
-
 }

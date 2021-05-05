@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		427E264E264228B9004AA5AF /* StickyHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 427E264D264228B9004AA5AF /* StickyHeaderView.swift */; };
+		427E265026422DD4004AA5AF /* StickyMenuCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 427E264F26422DD4004AA5AF /* StickyMenuCollectionViewFlowLayout.swift */; };
+		427E265226422E22004AA5AF /* StickyMenuCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 427E265126422E22004AA5AF /* StickyMenuCollectionViewCell.swift */; };
 		42B0BA9F26403ABC008E7BB8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B0BA9E26403ABC008E7BB8 /* AppDelegate.swift */; };
 		42B0BAA126403ABC008E7BB8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B0BAA026403ABC008E7BB8 /* SceneDelegate.swift */; };
 		42B0BAA326403ABC008E7BB8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B0BAA226403ABC008E7BB8 /* ViewController.swift */; };
@@ -19,6 +22,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		427E264D264228B9004AA5AF /* StickyHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickyHeaderView.swift; sourceTree = "<group>"; };
+		427E264F26422DD4004AA5AF /* StickyMenuCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickyMenuCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
+		427E265126422E22004AA5AF /* StickyMenuCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickyMenuCollectionViewCell.swift; sourceTree = "<group>"; };
 		42B0BA9B26403ABC008E7BB8 /* StickyHeader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StickyHeader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		42B0BA9E26403ABC008E7BB8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		42B0BAA026403ABC008E7BB8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -43,6 +49,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		427E264B264227C3004AA5AF /* PageView */ = {
+			isa = PBXGroup;
+			children = (
+				42B0BAB526403F2D008E7BB8 /* PageViewController.swift */,
+				42B0BAB72640410E008E7BB8 /* ChildViewController.swift */,
+			);
+			path = PageView;
+			sourceTree = "<group>";
+		};
+		427E264C2642289E004AA5AF /* Sticky HeaderView */ = {
+			isa = PBXGroup;
+			children = (
+				427E264D264228B9004AA5AF /* StickyHeaderView.swift */,
+				427E264F26422DD4004AA5AF /* StickyMenuCollectionViewFlowLayout.swift */,
+				427E265126422E22004AA5AF /* StickyMenuCollectionViewCell.swift */,
+			);
+			path = "Sticky HeaderView";
+			sourceTree = "<group>";
+		};
 		42B0BA9226403ABC008E7BB8 = {
 			isa = PBXGroup;
 			children = (
@@ -62,7 +87,8 @@
 		42B0BA9D26403ABC008E7BB8 /* StickyHeader */ = {
 			isa = PBXGroup;
 			children = (
-				42E047D6264104FA00EAEBA7 /* New Group */,
+				427E264C2642289E004AA5AF /* Sticky HeaderView */,
+				427E264B264227C3004AA5AF /* PageView */,
 				42B0BA9E26403ABC008E7BB8 /* AppDelegate.swift */,
 				42B0BAA026403ABC008E7BB8 /* SceneDelegate.swift */,
 				42B0BAA226403ABC008E7BB8 /* ViewController.swift */,
@@ -70,17 +96,8 @@
 				42B0BAA726403ABE008E7BB8 /* Assets.xcassets */,
 				42B0BAA926403ABE008E7BB8 /* LaunchScreen.storyboard */,
 				42B0BAAC26403ABE008E7BB8 /* Info.plist */,
-				42B0BAB526403F2D008E7BB8 /* PageViewController.swift */,
-				42B0BAB72640410E008E7BB8 /* ChildViewController.swift */,
 			);
 			path = StickyHeader;
-			sourceTree = "<group>";
-		};
-		42E047D6264104FA00EAEBA7 /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "New Group";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -159,11 +176,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				427E265226422E22004AA5AF /* StickyMenuCollectionViewCell.swift in Sources */,
 				42B0BAA326403ABC008E7BB8 /* ViewController.swift in Sources */,
+				427E264E264228B9004AA5AF /* StickyHeaderView.swift in Sources */,
 				42B0BAB82640410E008E7BB8 /* ChildViewController.swift in Sources */,
 				42B0BA9F26403ABC008E7BB8 /* AppDelegate.swift in Sources */,
 				42B0BAA126403ABC008E7BB8 /* SceneDelegate.swift in Sources */,
 				42B0BAB626403F2D008E7BB8 /* PageViewController.swift in Sources */,
+				427E265026422DD4004AA5AF /* StickyMenuCollectionViewFlowLayout.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

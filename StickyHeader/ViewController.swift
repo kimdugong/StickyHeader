@@ -10,8 +10,9 @@ import SnapKit
 
 class ViewController: UIViewController {
     private var maxHeight: CGFloat = 200
-    private var currentHeight: CGFloat = 200
     private var minHeight: CGFloat = 50
+    private var menuHeight: CGFloat = 50
+    private var tabTitle: [String] = ["추천", "커피", "에이드", "디저트", "스위트", "잡다용품", "기타쩌리"]
 
     private var container: UIView = {
         let view = UIView()
@@ -24,34 +25,22 @@ class ViewController: UIViewController {
         view.backgroundColor = .systemTeal
         return view
     }()
-
-    private var topMenu: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: .init())
-        return collectionView
-    }()
+    
+    private lazy var stickyHeaderView = StickyHeaderView(menuHeight: menuHeight)
     
     private lazy var pageView: PageViewController = {
-        let child1 = ChildViewController(menuTitle: "1", maxHeight: maxHeight)
-        child1.delegate = self
-        let child2 = ChildViewController(menuTitle: "2", maxHeight: maxHeight)
-        child2.delegate = self
-        let child3 = ChildViewController(menuTitle: "3", maxHeight: maxHeight)
-        child3.delegate = self
-        let child4 = ChildViewController(menuTitle: "4", maxHeight: maxHeight)
-        child4.delegate = self
-        let child5 = ChildViewController(menuTitle: "5", maxHeight: maxHeight)
-        child5.delegate = self
-        let child6 = ChildViewController(menuTitle: "6", maxHeight: maxHeight)
-        child6.delegate = self
-        let pageView = PageViewController(pages: child1, child2, child3, child4, child5, child6, maxHeight: maxHeight)
+        let pages = tabTitle.enumerated().map { (index, title) -> ChildViewController in
+            let child = ChildViewController(menuTitle: title, index: index)
+            child.delegate = self
+            return child
+        }
+        let pageView = PageViewController(pages: pages, maxHeight: maxHeight)
         pageView.pageViewDelegate = self
         return pageView
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        view.backgroundColor = .systemPink
 
         view.addSubview(container)
         container.addSubview(pageView.view)
@@ -65,21 +54,21 @@ class ViewController: UIViewController {
         pageView.view.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-
-        view.addSubview(headerView)
-        headerView.snp.makeConstraints { make in
+        
+        view.addSubview(stickyHeaderView)
+        stickyHeaderView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             make.left.right.equalToSuperview()
             make.height.equalTo(maxHeight).priority(.medium)
         }
-        
+        stickyHeaderView.menu.delegate = self
+        stickyHeaderView.menu.dataSource = self
     }
 }
 
-extension ViewController: ChildViewContollerDelegate {
-    func childViewScrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        print(scrollView)
-        currentHeight = headerView.frame.height
+extension ViewController: ChildViewContollerScrollDelegate {
+    func childScrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+//        currentHeight = min(stickyHeaderView.frame.height, maxHeight)
     }
 
     func childViewScrollViewDidScroll(_ scrollView: UIScrollView, menuTitle: String) {
@@ -87,11 +76,11 @@ extension ViewController: ChildViewContollerDelegate {
             return
         }
         if scrollView.contentOffset.y < 0 {
-            headerView.snp.updateConstraints { make in
+            stickyHeaderView.snp.updateConstraints { make in
                 make.height.equalTo(max(abs(scrollView.contentOffset.y), minHeight))
             }
         } else {
-            headerView.snp.updateConstraints { make in
+            stickyHeaderView.snp.updateConstraints { make in
                 make.height.equalTo(minHeight)
             }
         }
@@ -103,13 +92,33 @@ extension ViewController: PageViewControllerDelegate {
     }
 
     func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
-        if currentHeight <= maxHeight {
-            pendingViewControllers
-                .compactMap({ $0 as? ChildViewController })
-                .forEach({ $0.adjustTableViewOffset(offset: currentHeight)})
-        }
+        pendingViewControllers
+            .compactMap({ $0 as? ChildViewController })
+            .forEach({ $0.adjustScrollViewOffset(offset: $0.currentOffsetY + stickyHeaderView.bounds.height) })
     }
+}
 
+extension ViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        tabTitle.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: StickyMenuCollectionViewCell.identifier, for: indexPath) as? StickyMenuCollectionViewCell else {
+            return UICollectionViewCell()
+        }
+        
+        cell.setupUI(title: tabTitle[indexPath.row])
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.item == pageView.visiablePageIndex {
+            return
+        }
+        let direction: UIPageViewController.NavigationDirection = indexPath.item > pageView.visiablePageIndex ? .forward : .reverse
 
-
+        pageView.visiablePageIndex = indexPath.item
+        pageView.pagingTo(pageWithAtIndex: indexPath.row, andNavigationDirection: direction, headerViewHeight: stickyHeaderView.bounds.height)
+    }
 }
