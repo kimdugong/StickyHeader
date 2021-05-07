@@ -13,13 +13,16 @@ class StickyHeaderView: UIView {
     
     private var selectedUnderlineView: UIView = {
         let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
-    var menu: UICollectionView = {
-        let layout = StickyMenuCollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
+
+    let layout = StickyMenuCollectionViewFlowLayout()
+
+    lazy var menu: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        layout.scrollDirection = .horizontal
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.register(StickyMenuCollectionViewCell.self,
                                 forCellWithReuseIdentifier: StickyMenuCollectionViewCell.identifier)
         collectionView.backgroundColor = .white
@@ -34,14 +37,18 @@ class StickyHeaderView: UIView {
         self.menuHeight = menuHeight
         self.bottomLineHeight = bottomLineHeight
         super.init(frame: .zero)
-        
+        self.translatesAutoresizingMaskIntoConstraints = false
+
         self.backgroundColor = .systemPink
         self.addSubview(menu)
-        menu.snp.makeConstraints { make in
-            make.left.bottom.right.equalToSuperview()
-            make.height.equalTo(menuHeight)
-        }
-        
+
+        NSLayoutConstraint.activate([
+            menu.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            menu.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            menu.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            menu.heightAnchor.constraint(equalToConstant: menuHeight)
+        ])
+
         selectedUnderlineView.backgroundColor = bottomLineColor
         self.addSubview(selectedUnderlineView)
     }
@@ -51,23 +58,29 @@ class StickyHeaderView: UIView {
         guard let cell = menu.cellForItem(at: IndexPath(item: 0, section: 0)) as? StickyMenuCollectionViewCell else {
             return
         }
-        selectedUnderlineView.snp.makeConstraints { make in
-            make.bottom.equalToSuperview()
-            make.height.equalTo(bottomLineHeight)
-            make.left.right.equalTo(cell)
-        }
+
+        NSLayoutConstraint.activate([
+            selectedUnderlineView.widthAnchor.constraint(equalToConstant: cell.frame.width),
+            selectedUnderlineView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            selectedUnderlineView.heightAnchor.constraint(equalToConstant: bottomLineHeight),
+            selectedUnderlineView.centerXAnchor.constraint(equalTo: cell.centerXAnchor)
+        ])
     }
     
     func moveSelectedUnderlineView(index: Int) {
         guard let cell = menu.cellForItem(at: IndexPath(item: index, section: 0)) as? StickyMenuCollectionViewCell else {
             return
         }
-        
-        selectedUnderlineView.snp.remakeConstraints { make in
-            make.bottom.equalToSuperview()
-            make.height.equalTo(bottomLineHeight)
-            make.left.right.equalTo(cell)
-        }
+
+        selectedUnderlineView.constraints.first(where: { $0.firstAttribute == .width })?.isActive = false
+        selectedUnderlineView.removeFromSuperview()
+        self.addSubview(selectedUnderlineView)
+        NSLayoutConstraint.activate([
+            selectedUnderlineView.widthAnchor.constraint(equalToConstant: cell.frame.width),
+            selectedUnderlineView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            selectedUnderlineView.heightAnchor.constraint(equalToConstant: bottomLineHeight),
+            selectedUnderlineView.centerXAnchor.constraint(equalTo: cell.centerXAnchor)
+        ])
         
         UIView.animate(withDuration: 0.25) {
             super.layoutIfNeeded()

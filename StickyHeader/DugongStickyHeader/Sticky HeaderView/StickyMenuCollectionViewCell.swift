@@ -12,7 +12,7 @@ class StickyMenuCollectionViewCell: UICollectionViewCell {
     
     private var titleLabel: UILabel = {
         let label = UILabel()
-        
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -26,12 +26,22 @@ class StickyMenuCollectionViewCell: UICollectionViewCell {
     }
     
     func config() {
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            contentView.leftAnchor.constraint(equalTo: leftAnchor),
+            contentView.rightAnchor.constraint(equalTo: rightAnchor),
+            contentView.topAnchor.constraint(equalTo: topAnchor),
+            contentView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
+
+        contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         contentView.addSubview(titleLabel)
-        
-        titleLabel.snp.makeConstraints { make in
-            make.left.right.equalToSuperview()
-            make.centerY.equalToSuperview()
-        }
+
+        NSLayoutConstraint.activate([
+            titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+        ])
     }
     
     func setupUI(title: String?) {

@@ -27,6 +27,7 @@ class StickyHeaderViewController: UIViewController {
 
     private var container: UIView = {
         let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .yellow
         return view
     }()
@@ -38,6 +39,7 @@ class StickyHeaderViewController: UIViewController {
     
     private lazy var pageView: PageViewController = {
         let pageView = PageViewController(pages: pages, maxHeight: maxHeight, minHeight: minHeight)
+        pageView.view.translatesAutoresizingMaskIntoConstraints = false
         pageView.pageViewDelegate = self
         return pageView
     }()
@@ -46,23 +48,32 @@ class StickyHeaderViewController: UIViewController {
         super.viewDidLoad()
         view.addSubview(container)
         container.addSubview(pageView.view)
-        container.snp.makeConstraints { make in
-            make.bottom.left.right.equalToSuperview()
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-        }
+        NSLayoutConstraint.activate([
+            container.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            container.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            container.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            container.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor)
+        ])
 
         addChild(pageView)
         pageView.didMove(toParent: self)
-        pageView.view.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
+        NSLayoutConstraint.activate([
+            pageView.view.bottomAnchor.constraint(equalTo: container.bottomAnchor),
+            pageView.view.leadingAnchor.constraint(equalTo: container.leadingAnchor),
+            pageView.view.trailingAnchor.constraint(equalTo: container.trailingAnchor),
+            pageView.view.topAnchor.constraint(equalTo: container.topAnchor)
+        ])
 
         view.addSubview(stickyHeaderView)
-        stickyHeaderView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            make.left.right.equalToSuperview()
-            make.height.equalTo(maxHeight)
-        }
+        let headerViewHeightConstraint = stickyHeaderView.heightAnchor.constraint(equalToConstant: maxHeight)
+        headerViewHeightConstraint.priority = .defaultLow
+        NSLayoutConstraint.activate([
+            stickyHeaderView.topAnchor.constraint(equalTo: view.topAnchor),
+            stickyHeaderView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            stickyHeaderView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            headerViewHeightConstraint
+        ])
+
         stickyHeaderView.menu.delegate = self
         stickyHeaderView.menu.dataSource = self
 
@@ -80,13 +91,18 @@ extension StickyHeaderViewController: ChildViewContollerScrollDelegate {
             return
         }
         if scrollView.contentOffset.y < 0 {
-            stickyHeaderView.snp.updateConstraints { make in
-                make.height.equalTo(max(abs(scrollView.contentOffset.y), minHeight))
+            for constraint in stickyHeaderView.constraints {
+                guard constraint.firstAttribute == .height  else { continue }
+                constraint.constant = max(abs(scrollView.contentOffset.y), minHeight)
+                break
             }
         } else {
-            stickyHeaderView.snp.updateConstraints { make in
-                make.height.equalTo(minHeight)
+            for constraint in stickyHeaderView.constraints {
+                guard constraint.firstAttribute == .height else { continue }
+                constraint.constant = minHeight
+                break
             }
+
             UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: {
                 self.stickyHeaderView.layoutIfNeeded()
             }, completion: nil)
