@@ -13,7 +13,6 @@ class StickyHeaderView: UIView {
     
     private var selectedUnderlineView: UIView = {
         let view = UIView()
-        view.backgroundColor = .blue
         return view
     }()
     

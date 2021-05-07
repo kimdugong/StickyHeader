@@ -34,7 +34,7 @@ class StickyMenuCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    func setupUI(title: String) {
+    func setupUI(title: String?) {
         titleLabel.text = title
         titleLabel.sizeToFit()
     }
