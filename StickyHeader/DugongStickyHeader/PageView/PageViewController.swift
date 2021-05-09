@@ -15,8 +15,8 @@ protocol PageViewControllerDelegate: AnyObject {
 
 class PageViewController: UIPageViewController {
     var pages: [UIViewController]
-    private var maxHeight: CGFloat
-    private var minHeight: CGFloat
+    let option: DugongStickyHeaderConfiguration
+    
     var visiablePageIndex: Int = 0 {
         willSet {
             pageViewDelegate?.pageIndexWillChange(index: newValue)
@@ -24,10 +24,9 @@ class PageViewController: UIPageViewController {
     }
     weak var pageViewDelegate: PageViewControllerDelegate?
     
-    init(pages: [StickyHeaderChildViewController], maxHeight: CGFloat, minHeight: CGFloat) {
+    init(pages: [StickyHeaderChildViewController], option: DugongStickyHeaderConfiguration) {
         self.pages = pages
-        self.maxHeight = maxHeight
-        self.minHeight = minHeight
+        self.option = option
         super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: .none)
     }
     
@@ -49,9 +48,9 @@ class PageViewController: UIPageViewController {
         self.setViewControllers([pages[index]], direction: direction, animated: true, completion: nil)
         guard let childVC = pages[index] as? StickyHeaderChildViewController else { return }
         childVC.delegate = self.parent as? ChildViewContollerScrollDelegate
-        if childVC.stickyHeaderChildScrollView?.contentOffset.y ?? 0 + headerViewHeight <= maxHeight {
+        if childVC.stickyHeaderChildScrollView?.contentOffset.y ?? 0 + headerViewHeight <= option.headerMaxHeight {
             childVC.stickyHeaderChildScrollView?.contentOffset.y = -headerViewHeight
-            childVC.stickyHeaderChildScrollView?.contentInset = UIEdgeInsets(top: maxHeight, left: 0, bottom: 0, right: 0)
+            childVC.stickyHeaderChildScrollView?.contentInset = UIEdgeInsets(top: option.headerMaxHeight, left: 0, bottom: 0, right: 0)
         }
     }
     

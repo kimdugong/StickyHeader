@@ -10,6 +10,7 @@
 		427E264E264228B9004AA5AF /* StickyHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 427E264D264228B9004AA5AF /* StickyHeaderView.swift */; };
 		427E265026422DD4004AA5AF /* StickyMenuCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 427E264F26422DD4004AA5AF /* StickyMenuCollectionViewFlowLayout.swift */; };
 		427E265226422E22004AA5AF /* StickyMenuCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 427E265126422E22004AA5AF /* StickyMenuCollectionViewCell.swift */; };
+		427E26542647C91B004AA5AF /* DugongStickyHeaderConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 427E26532647C91B004AA5AF /* DugongStickyHeaderConfiguration.swift */; };
 		42B0BA9F26403ABC008E7BB8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B0BA9E26403ABC008E7BB8 /* AppDelegate.swift */; };
 		42B0BAA126403ABC008E7BB8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B0BAA026403ABC008E7BB8 /* SceneDelegate.swift */; };
 		42B0BAA326403ABC008E7BB8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B0BAA226403ABC008E7BB8 /* ViewController.swift */; };
@@ -27,6 +28,7 @@
 		427E264D264228B9004AA5AF /* StickyHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickyHeaderView.swift; sourceTree = "<group>"; };
 		427E264F26422DD4004AA5AF /* StickyMenuCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickyMenuCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		427E265126422E22004AA5AF /* StickyMenuCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickyMenuCollectionViewCell.swift; sourceTree = "<group>"; };
+		427E26532647C91B004AA5AF /* DugongStickyHeaderConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DugongStickyHeaderConfiguration.swift; sourceTree = "<group>"; };
 		42B0BA9B26403ABC008E7BB8 /* StickyHeader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StickyHeader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		42B0BA9E26403ABC008E7BB8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		42B0BAA026403ABC008E7BB8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -62,14 +64,14 @@
 			path = PageView;
 			sourceTree = "<group>";
 		};
-		427E264C2642289E004AA5AF /* Sticky HeaderView */ = {
+		427E264C2642289E004AA5AF /* StickyHeaderView */ = {
 			isa = PBXGroup;
 			children = (
 				427E264D264228B9004AA5AF /* StickyHeaderView.swift */,
 				427E264F26422DD4004AA5AF /* StickyMenuCollectionViewFlowLayout.swift */,
 				427E265126422E22004AA5AF /* StickyMenuCollectionViewCell.swift */,
 			);
-			path = "Sticky HeaderView";
+			path = StickyHeaderView;
 			sourceTree = "<group>";
 		};
 		42B0BA9226403ABC008E7BB8 = {
@@ -107,9 +109,10 @@
 		42E047DF2644C67700EAEBA7 /* DugongStickyHeader */ = {
 			isa = PBXGroup;
 			children = (
-				427E264C2642289E004AA5AF /* Sticky HeaderView */,
+				427E264C2642289E004AA5AF /* StickyHeaderView */,
 				427E264B264227C3004AA5AF /* PageView */,
 				42E047DB2643E69D00EAEBA7 /* StickyHeaderViewController.swift */,
+				427E26532647C91B004AA5AF /* DugongStickyHeaderConfiguration.swift */,
 			);
 			path = DugongStickyHeader;
 			sourceTree = "<group>";
@@ -195,6 +198,7 @@
 				42B0BAA326403ABC008E7BB8 /* ViewController.swift in Sources */,
 				427E264E264228B9004AA5AF /* StickyHeaderView.swift in Sources */,
 				42B0BAB82640410E008E7BB8 /* StickyHeaderChildViewController.swift in Sources */,
+				427E26542647C91B004AA5AF /* DugongStickyHeaderConfiguration.swift in Sources */,
 				42B0BA9F26403ABC008E7BB8 /* AppDelegate.swift in Sources */,
 				42B0BAA126403ABC008E7BB8 /* SceneDelegate.swift in Sources */,
 				42B0BAB626403F2D008E7BB8 /* PageViewController.swift in Sources */,

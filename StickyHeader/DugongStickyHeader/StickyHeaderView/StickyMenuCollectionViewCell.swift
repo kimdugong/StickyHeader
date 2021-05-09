@@ -16,6 +16,13 @@ class StickyMenuCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
+    private var selectedUnderlineView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .black
+        return view
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         config()
@@ -33,10 +40,10 @@ class StickyMenuCollectionViewCell: UICollectionViewCell {
             contentView.topAnchor.constraint(equalTo: topAnchor),
             contentView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
-
+        
         contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         contentView.addSubview(titleLabel)
-
+        
         NSLayoutConstraint.activate([
             titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
@@ -48,4 +55,5 @@ class StickyMenuCollectionViewCell: UICollectionViewCell {
         titleLabel.text = title
         titleLabel.sizeToFit()
     }
+    
 }
