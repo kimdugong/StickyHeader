@@ -159,8 +159,10 @@ extension StickyHeaderViewController: UICollectionViewDataSource, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        CGSize(width: collectionView.bounds.width, height: collectionView.bounds.height)
+        guard let cell = collectionView.cellForItem(at: indexPath) as? StickyMenuCollectionViewCell else {
+            return collectionView.bounds.size
+        }
+        stickyHeaderView.moveSelectedUnderlineView(index: pageView.visiablePageIndex, animated: false)
+        return CGSize(width: cell.bounds.width, height: collectionView.bounds.height)
     }
-    
-    
 }

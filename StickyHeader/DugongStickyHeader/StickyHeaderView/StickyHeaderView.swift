@@ -70,46 +70,31 @@ class StickyHeaderView: UIView {
             return
         }
         NSLayoutConstraint.activate([
-            selectedUnderlineView.widthAnchor.constraint(equalToConstant: cell.frame.width),
+            selectedUnderlineView.leadingAnchor.constraint(equalTo: cell.leadingAnchor),
+            selectedUnderlineView.trailingAnchor.constraint(equalTo: cell.trailingAnchor),
             selectedUnderlineView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             selectedUnderlineView.heightAnchor.constraint(equalToConstant: option.selectedMenuTabItemUnderlineHeight),
-            selectedUnderlineView.centerXAnchor.constraint(equalTo: cell.centerXAnchor)
         ])
-//        guard let cell = menu.layoutAttributesForItem(at: IndexPath(item: 0, section: 0)) else { return }
-//        NSLayoutConstraint.activate([
-//            selectedUnderlineView.widthAnchor.constraint(equalToConstant: cell.frame.width),
-//            selectedUnderlineView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-//            selectedUnderlineView.heightAnchor.constraint(equalToConstant: option.selectedMenuTabItemUnderlineHeight),
-//            selectedUnderlineView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: cell.frame.minX)
-//        ])
     }
     
-    func moveSelectedUnderlineView(index: Int) {
+    func moveSelectedUnderlineView(index: Int, animated: Bool = true) {
         guard let cell = menu.cellForItem(at: IndexPath(item: index, section: 0)) as? StickyMenuCollectionViewCell else {
             return
         }
-        selectedUnderlineView.constraints.first(where: { $0.firstAttribute == .width })?.isActive = false
         selectedUnderlineView.removeFromSuperview()
         self.addSubview(selectedUnderlineView)
         NSLayoutConstraint.activate([
-            selectedUnderlineView.widthAnchor.constraint(equalToConstant: cell.frame.width),
+            selectedUnderlineView.leadingAnchor.constraint(equalTo: cell.leadingAnchor),
+            selectedUnderlineView.trailingAnchor.constraint(equalTo: cell.trailingAnchor),
             selectedUnderlineView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             selectedUnderlineView.heightAnchor.constraint(equalToConstant: option.selectedMenuTabItemUnderlineHeight),
-            selectedUnderlineView.centerXAnchor.constraint(equalTo: cell.centerXAnchor)
         ])
-
-//        guard let cell = menu.layoutAttributesForItem(at: IndexPath(item: index, section: 0)) else { return }
-//        selectedUnderlineView.constraints.first(where: { $0.firstAttribute == .width })?.isActive = false
-//        selectedUnderlineView.removeFromSuperview()
-//        self.addSubview(selectedUnderlineView)
-//        NSLayoutConstraint.activate([
-//            selectedUnderlineView.widthAnchor.constraint(equalToConstant: cell.frame.width),
-//            selectedUnderlineView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-//            selectedUnderlineView.heightAnchor.constraint(equalToConstant: option.selectedMenuTabItemUnderlineHeight),
-//            selectedUnderlineView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: cell.frame.minX)
-//        ])
-
-        UIView.animate(withDuration: 0.25) {
+        
+        if animated {
+            UIView.animate(withDuration: 0.25) {
+                super.layoutIfNeeded()
+            }
+        } else {
             super.layoutIfNeeded()
         }
     }
